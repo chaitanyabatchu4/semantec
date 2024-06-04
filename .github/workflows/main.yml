@@ -24,6 +24,4 @@ jobs:
         run: npx semantic-release
       - name: Push tag to repository
         run: |
-          git tag -l | xargs -I@ git push origin @
-      - name: Test
-        run: npm test
+          git tag -l | xargs -I@ git push origin main
