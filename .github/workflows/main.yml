@@ -3,7 +3,7 @@ name: Release
   push:
     branches:
       - master
-      - next
+      - main
       - beta
       - "*.x"
 permissions:
