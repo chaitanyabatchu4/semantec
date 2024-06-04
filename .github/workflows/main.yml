@@ -1,4 +1,4 @@
-name: Semantic release 
+name: Semantic Release 
 
 on:
   push:
@@ -13,14 +13,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 20
+          node-version: '14' 
       - name: Install dependencies
         run: npm install 
       - name: Build app
         run: npm run build 
-      - name: Semantic release
+      - name: Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.SR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SR_TOKEN }} 
         run: npx semantic-release
       - name: Test
         run: npm test
