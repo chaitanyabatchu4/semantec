@@ -22,10 +22,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SR_TOKEN }} 
         run: npx semantic-release
-      - name: Push tag to repository
+      - name: Update Git remote URL
         run: |
-          git remote add origin https://x-access-token:${{ secrets.SR_TOKEN }}@github.com/chaitanyabatchu4/semantec.git
-          git tag -l | xargs -I@ git push origin @
-      - name: Test
-        run: npm test
+          git remote set-url origin https://x-access-token:${{ secrets.SR_TOKEN }}@github.com/chaitanyabatchu4/semantec.git
+
+      - name: List tags and push to repository
+        run: |
+          git tag -l | xargs -I@ git push origin main
         
