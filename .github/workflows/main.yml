@@ -28,3 +28,4 @@ jobs:
           git tag -l | xargs -I@ git push origin @
       - name: Test
         run: npm test
+        
