@@ -1,4 +1,4 @@
-name: CI
+name: Semantic release 
 
 on:
   push:
@@ -22,3 +22,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
+      - name: Test
+        run: npm test
