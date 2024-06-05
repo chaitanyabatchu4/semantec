@@ -21,6 +21,7 @@ jobs:
       - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.SR_TOKEN }}
+          # Configure semantic-release to trigger on every commit
           SEMANTIC_RELEASE_PACKAGE: '{
             "branches": ["main"],
             "plugins": [
@@ -30,7 +31,9 @@ jobs:
                   {"type": "*", "release": "patch"}
                 ]
               }],
-              "@semantic-release/release-notes-generator",
+              ["@semantic-release/release-notes-generator", {
+                "preset": "conventionalcommits"
+              }],
               "@semantic-release/changelog",
               "@semantic-release/npm",
               "@semantic-release/github",
