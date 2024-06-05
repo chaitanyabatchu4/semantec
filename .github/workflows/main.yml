@@ -29,4 +29,3 @@ jobs:
       - name: List tags and push to repository
         run: |
           git tag -l | xargs -I@ git push origin main
-        
