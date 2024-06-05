@@ -21,7 +21,22 @@ jobs:
       - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.SR_TOKEN }}
-          SEMANTIC_RELEASE_PACKAGE: '{"releaseRules":[{"type":"feat","release":"minor"},{"type":"fix","release":"patch"},{"type":"chore","release":"patch"},{"type":"docs","release":"patch"},{"type":"style","release":"patch"},{"type":"refactor","release":"patch"},{"type":"perf","release":"patch"},{"type":"test","release":"patch"}],"parserOpts":{"noteKeywords":["BREAKING CHANGE","BREAKING CHANGES"]},"branches":["main"]}'
+          SEMANTIC_RELEASE_PACKAGE: '{
+            "branches": ["main"],
+            "plugins": [
+              ["@semantic-release/commit-analyzer", {
+                "preset": "conventionalcommits",
+                "releaseRules": [
+                  {"type": "*", "release": "patch"}
+                ]
+              }],
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/changelog",
+              "@semantic-release/npm",
+              "@semantic-release/github",
+              "@semantic-release/git"
+            ]
+          }'
         run: npx semantic-release
       - name: Update Git remote URL
         run: git remote set-url origin https://x-access-token:${{ secrets.SR_TOKEN }}@github.com/chaitanyabatchu4/semantec.git
