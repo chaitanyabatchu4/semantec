@@ -2,7 +2,16 @@ name: Semantic Release
 
 on:
   push:
-	 jobs:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
           node-version: '20'
       - name: Install dependencies
@@ -16,6 +25,7 @@ on:
       - name: Update Git remote URL
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.SR_TOKEN }}@github.com/chaitanyabatchu4/semantec.git
+
       - name: List tags and push to repository
         run: |
           git tag -l | xargs -I@ git push origin main
