@@ -1,4 +1,4 @@
-name: Semantic Release 
+name: Semantic Release
 
 on:
   push:
@@ -15,17 +15,15 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm install 
+        run: npm install
       - name: Build app
-        run: npm run build 
+        run: npm run build
       - name: Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.SR_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          SEMANTIC_RELEASE_PACKAGE: '{"releaseRules":[{"type":"feat","release":"minor"},{"type":"fix","release":"patch"},{"type":"chore","release":"patch"},{"type":"docs","release":"patch"},{"type":"style","release":"patch"},{"type":"refactor","release":"patch"},{"type":"perf","release":"patch"},{"type":"test","release":"patch"}],"parserOpts":{"noteKeywords":["BREAKING CHANGE","BREAKING CHANGES"]},"branches":["main"]}'
         run: npx semantic-release
       - name: Update Git remote URL
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.SR_TOKEN }}@github.com/chaitanyabatchu4/semantec.git
-
+        run: git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/chaitanyabatchu4/semantec.git
       - name: List tags and push to repository
-        run: |
-          git tag -l | xargs -I@ git push origin main
+        run: git tag -l | xargs -I@ git push origin main
